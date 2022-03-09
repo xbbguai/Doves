@@ -1,0 +1,103 @@
+import "test15_module.dov" as mts
+import "test16_datetime.dov" as dtsg
+import "中文.sg"
+
+dim global gla as integer
+dim global glb[100] as real
+
+fn globalprint()
+    print gla
+    glb[0] = 50
+endfn
+
+fn main()
+    gla = 100
+    globalprint()
+    print glb[0]
+
+    dim a as binary
+    a.create(512)
+    for i = 0 to 99
+        a.setat(i,i + 10)
+    next
+
+    for i = 0 to 1
+        print a.getat(i),
+    next
+
+    print
+    print a.getsize()
+
+    a.setalign(1)
+
+    print "Next test"
+    idx = 0
+    for i = 0 to 10
+        idx = a.putinteger(idx, i, "long")
+        print idx,
+    next
+    print
+    idx = 0
+    d = 0
+    for i = 0 to 10
+        idx = a.getinteger(idx, d, "long")
+        print d,
+    next
+    print
+
+    idx = 0
+    for i = 0 to 10
+        rm = rand() * 100
+        idx = a.putreal(idx, rm, "double")
+        print idx,
+    next
+    print
+    idx = 0
+    dim r as real
+    for i = 0 to 10
+        idx = a.getreal(idx, r, "double")
+        print r,
+    next
+    print
+
+
+    print "Test string"
+    str = ""
+    idx = 0
+    idx = a.putstring(idx, "This is a 中文 string.", "utf8")
+    print idx
+    a.putstring(idx, "第二个圈中文字符串。", "utf8")
+    idx = a.getstring(0, str, "utf8")
+    print str, idx
+    idx = a.getstring(idx, str, "utf8")
+    print str, idx
+
+
+    dim myfile as file
+    myfile.name = "aaa.bin"
+    myfile.open(true, true, true)
+    myfile.writebin(a, 0, a.getsize())
+    myfile.seek(0)
+    
+    dim b as binary
+    b.create(a.getsize())
+    myfile.readbin(b, 0, b.getsize())
+    myfile.close()
+
+    print "Test read binary"
+    str = ""
+    idx = 0
+    idx = b.getstring(0, str, "utf8")
+    print str, idx
+    idx = b.getstring(idx, str, "utf8")
+    print str, idx
+
+    print "--------"
+    mts.main()
+    dtsg.main()
+    中文.main()
+
+
+    print gla
+    print mts.gla
+endfn

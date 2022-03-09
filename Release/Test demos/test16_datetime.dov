@@ -1,0 +1,70 @@
+fn main()
+    dim dt as datetime
+    dt.getnow()
+    print dt.year,dt.month,dt.day
+    print dt.hour,dt.minute,dt.second
+
+    dim myfile as file
+    myfile.name = "aaa.txt"
+    myfile.open(false, true, true, false)
+    myfile.write(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "abc", "def", "ghi", "我我我我", "你你你你", true)
+    myfile.write(200.3)
+    myfile.write(True)
+    myfile.writeln()
+    myfile.writeln("this islonglonglonglonglonbglonglonglonglong a text test")
+    myfile.writeln("这是中文测试")
+    myfile.writeln("this one is 中英文混合测试 test")
+    myfile.writeln(1,2,3,3.1415,"依稀开元全盛日")
+    print myfile.name
+    if not myfile.close()
+        print "closed file failed"
+    endif
+
+    dim r1 as integer
+    dim r2 as real
+    dim r3 as boolean
+    dim r4 as string
+    print myfile.open()
+    myfile.read(r1)
+    myfile.read(r2)
+    myfile.read(r3)
+    myfile.read(r4)
+    print r1, r2, r3, r4
+
+    dim r5 as string
+    dim r6 as string
+
+    myfile.read(r4, r5, r6)
+    print r4, r5, r6
+    
+    myfile.readln(r4, r5, r6)
+    print r4, r5, r6
+
+    print "----- get char"
+    print myfile.getchar()
+    print myfile.getchar()
+    print myfile.getchar()
+    print myfile.getchar()
+    print myfile.getchar()
+    print myfile.getchar()
+    print myfile.getchar()
+    print "----- end get char"
+
+    while myfile.readln(r4)
+        print r4
+    wend
+    
+    print myfile.getchar()
+    
+    print "read done."
+    print myfile.tell()
+    myfile.seek(0)
+    print myfile.tell()
+    myfile.seek(0, 1)
+    print myfile.tell()
+    myfile.seek(0, 2)
+    print myfile.tell()
+    myfile.close()
+
+    print r1, r2, r3
+endf

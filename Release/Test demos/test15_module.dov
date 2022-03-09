@@ -1,0 +1,45 @@
+import "test14_polymorphy.dov" as first
+import "test13_struct_4.dov" as second
+
+struct aaa extends second.polygon
+    dim m
+endstruct
+
+fn aaa.aaa()
+    print "in aaa.aaa"
+endfn
+
+fn paramtest(pa)
+    print "param test:", pa * 2
+endfn
+
+dim global gla as integer
+fn main()
+    second.main()
+    second.glb_a = 5
+    paramtest(second.glb_a)
+
+    dim d as aaa
+    d.addvertex(30, 4)
+    d.draw()
+    d.m = 5.1
+    d.addvertex(30, 4)
+    d.draw()
+    d.aaa()
+
+    gla = 99
+    dim c as second.polygon
+    c.addvertex(10, 20)
+    c.draw()
+
+    dim a as first.coordinate
+    dim b as second.coordinate
+    a.x = 100
+    a.y = 200
+
+    b.x = 20
+    b.y = 30
+
+    first.moduletest()
+    print gla
+endfn

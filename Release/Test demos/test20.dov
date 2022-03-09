@@ -1,0 +1,31 @@
+
+dim global mtx as mutex
+
+class mythread extends thread
+    a as integer
+    exit as boolean
+endclass
+
+fn mythread.runner()
+    print self.a * 20
+    mtx.lock()
+    print "locked and started"
+    for i = 0 to 10
+        print "Thread:"; i
+        if exit then
+            break
+        endif
+        sleep(150)
+    next
+    mtx.unlock()
+    print "unlocked and ended"
+endfn
+
+
+    dim t1 as mythread
+   t1.start()
+   print "t1 started"
+//   sleep(1500)
+    print len("asf")
+    st = "mmasdfasdfsdf"
+    print len("asfasdfsadf"), st.len()

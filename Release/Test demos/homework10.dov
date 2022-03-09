@@ -1,0 +1,46 @@
+/*  
+    约瑟夫问题
+    链表解决法
+*/
+
+struct node
+    data as integer
+    byref nextNode as node
+endstruct
+
+fn node.CreateNext(data)
+    dim @(nextNode) as node
+    nextNode.data = data
+endfn
+
+fn node.RemoveNext()
+    if nextNode is not null
+        nextNode @= nextNode.nextNode
+    endif
+endfn
+
+dim n, k as integer
+input "Size of the queue: ", n
+input "Span: ", k
+
+dim head as node
+dim byref current, byref prev as node
+current @= head
+
+for i = 1 to n 
+    current.CreateNext(i)
+    current @= current.nextNode
+next
+prev @= current
+current.nextNode @= head.nextNode  //首尾相连
+
+current @= prev
+while n > 0
+    for i = 1 to k
+        prev @= current
+        current @= current.nextNode
+    next
+    print current.data
+    prev.nextNode @= current.NextNode
+    n = n - 1
+wend

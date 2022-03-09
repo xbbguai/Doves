@@ -1,0 +1,37 @@
+import "test13_struct_4.dov" as st
+
+fn main()
+    dim byref r1, r, arr[100]
+    dim a,b,c
+    dim d,e,f as integer
+    dim g,h as st.coordinate
+
+    a = 1
+    b = "be"
+    c = 20.5
+    print a, b, c
+
+    d = 10
+    e = 20
+    f = 30
+    print d, e, f
+
+    try
+        f = "asdf"
+    catch e as exception
+        print "err catched: "; e.errCode
+    endtry
+
+    g.x = 3
+    h.y = 4
+    print g.x, h.y
+
+    r1 @= d
+    arr[0] = 10
+    r = d * 10
+    print r1, d, r, arr[0]
+
+    dim @(r1), r2, r3 as integer
+    r1 = 5
+    print r1, d
+endfn

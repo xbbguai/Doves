@@ -1,0 +1,24 @@
+/*
+    杨辉三角形
+*/
+
+input n as integer
+
+dim lineData[n][n]
+
+for y = 0 to n - 1
+    lineData[y][0] = 1
+    lineData[y][y] = 1
+    for x = 1 to y - 1
+        lineData[y][x] = lineData[y-1][x] + lineData[y-1][x-1]
+    next
+next
+
+//Print the triangle with the formatted style
+for y = 0 to n - 1
+    print tab((n - y) * 5 / 2);
+    for x = 0 to n - 1
+        print setw(5);lineData[y][x];
+    next
+    print setw(1)
+next

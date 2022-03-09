@@ -1,0 +1,3 @@
+fn setcolor(color)
+    print chr(27) + "[" + "3" + chr(asc("0") + color) + "m";
+endfn

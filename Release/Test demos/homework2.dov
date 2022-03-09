@@ -1,0 +1,15 @@
+/*
+爬楼梯
+爬楼梯的规则是：每次可以爬一级，也可以爬两级。如果有n级楼梯，问：一共有多少种爬法？
+*/
+
+fn Steps(n)
+    if n <= 2
+        return n
+    else
+        return Steps(n - 2) + Steps(n - 1)
+    endif
+endfn
+
+input "How many steps?", count as integer
+print Steps(count)

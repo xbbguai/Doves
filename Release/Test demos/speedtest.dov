@@ -1,0 +1,26 @@
+﻿import "test13_struct_4.dov" as st
+
+dim global a
+a = 1
+PRINT "Started."
+start = TICKS()
+FOR i = 0 TO 1000000
+    a = a + 1
+NEXT
+PRINT TICKS() - start
+print a
+
+dim m as st.polygon
+m.addvertex(1,2)
+m.addvertex(3,4)
+m.draw()
+
+fn main()
+if params is not null
+    foreach item in params
+        print item
+    next
+endif
+print "main"
+PRINT a
+endfn

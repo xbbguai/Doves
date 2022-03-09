@@ -1,0 +1,28 @@
+/*
+    在 8 * 8 的国际象棋棋盘格上，求马从左边一个位置跳到右边一个位置，一共有多少种跳法。
+    假设马不会往回跳。
+*/
+
+fn HorseJump(startX, startY, endX, endY) as integer
+    if startX < 0 or startY < 0 or startX > 7 or startY > 7
+        return 0
+    endif
+    if startX = endX and startY = endY
+        return 1
+    endif
+
+    total = 0
+    total = total + HorseJump(startX + 1, startY - 2, endX, endY)
+    total = total + HorseJump(startX + 2, startY - 1, endX, endY)
+    total = total + HorseJump(startX + 2, startY + 1, endX, endY)
+    total = total + HorseJump(startX + 1, startY + 2, endX, endY)
+
+    return total
+endfn
+
+fn main()
+    input "Start x, y (seperated with space): ", startX as integer, startY as integer
+    input "End x, y (seperated with space): ", endX as integer, endY as integer
+
+    print HorseJump(startX, startY, endX, endY)
+endfn

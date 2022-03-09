@@ -1,0 +1,91 @@
+struct coordinate
+    dim x
+    dim y
+endstruct
+
+fn coordinate.draw()
+    print "coordinate drawn. ", self.x, self.y
+endfn
+
+fn coordinate.make()
+    print "I'm in coordinate.make()"
+    draw()
+endfn
+
+struct circle extends coordinate
+    dim radius
+endstruct
+
+fn circle.draw()
+    print "circle drawn. ", self.x, self.y, self.radius
+endfn
+
+fn circle.other()
+    print "circle other."
+endfn
+
+struct news
+    title as string
+endstruct
+
+fn news.draw()
+    print self.title
+endfn
+
+fn draw(byref obj as coordinate)
+    obj.draw()
+endfn
+
+fn mtdraw(byref obj)
+    obj.draw()
+endfn
+
+fn mtdrawnoref(obj)
+    obj.draw()
+endfn
+
+fn moduletest()
+    print "in module test14"
+endfn
+
+fn main()
+    dim a as coordinate
+    a.x = 10
+    a.y = 11
+    dim b as circle
+    b.x = 20
+    b.y = 21
+    b.radius = 3
+
+    dim c as news
+    c.title = "mars is to explode as the moon has exploded"
+
+    dim byref r as coordinate
+
+    draw(a)
+    draw(b)
+
+    r @= a
+    r.draw()
+    r @= b
+    r.draw()
+    r.radius = r.radius * 3
+    r.draw()
+
+    dim byref rn as coordinate
+    rn @= b
+    rn.draw()
+    rn @= a
+    rn.draw()
+    rn.make()
+    rn @= b
+    rn.draw()
+    rn.make()
+
+    draw(r)
+    
+    mtdraw(r)
+    mtdraw(c)
+    mtdrawnoref(r)
+    mtdrawnoref(c)
+endfn

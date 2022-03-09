@@ -1,0 +1,60 @@
+fn test(arr)
+    foreach i in arr
+        if i.isstructureof("ST")
+            print "struct"
+            i.printout()
+        else if i.isarray()
+            foreach j in i
+                print j,
+            next
+            print
+        else
+            print i
+        endif
+    next
+endfn
+
+struct st
+    x
+    y
+endstruct
+
+fn st.printout()
+    print "st.printout: ", x, y
+endfn
+
+fn teststparam(s as st)
+    print typename(s)
+    print s.x, s.y
+endfn
+
+fn main()
+    dim std as st
+    std = [91, 92]
+    print std.x, std.y
+    teststparam(std)
+    teststparam([80.8, 80.9])
+
+    e = 5.01
+    f = 10.1
+
+    arr = [1, std.x, std.y, ["abc", true, e], std]
+
+    arr = [e, f]
+    print arr.arraysize()
+    print arr[4].x, arr[4].y
+    print
+    foreach i in arr[3]
+        print i
+    next
+
+    mk = arr
+    print mk.arraysize()
+
+    test([1, 2, 3, ["abc", true, e]])
+    
+    [e, f] = [f, e]
+    print e, f
+  
+    test(arr)
+endfn

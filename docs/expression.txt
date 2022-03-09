@@ -1,0 +1,131 @@
+E -> E1 XOR F  { E.val = E1.val XOR F.val }
+E -> F         { E.val = F.val }
+
+E -> F		{ RA.in = F.val }
+	RA		{ E.val = RA.s}
+RA -> XOR F  {RA1.in = RA.in XOR F.val }
+	 RA1 		{RA.s = RA1.s}
+RA -> e		{RA.s = RA.in}
+
+F -> F1 OR G   { F.val = F1.val OR G.val }
+F -> G         { F.val = G.val }
+
+F -> G		 {RB.in = G.val}
+	 RB		 {F.val = RB.s}
+RB -> OR G	 {RB1.in = RB.in OR G.val}
+	 RB1     {RB.s = RB1.s}
+RB -> e		 {RB.s = RB.in}
+
+G -> G1 AND I  { G.val = G1.val AND I.val }
+G -> I         { G.val = I.val }
+
+G -> I		 {RC.in = I.val}
+	 RC		 {G.val = RC.s}
+RC -> AND I	 {RC1.in = RC.in AND I.val}
+	 RC1		 {RC.s = RC1.s}
+RC -> e		 {RC.s = RC.in}
+
+I -> NOT I1    { I.val = NOT I1.val }
+I -> J         { I.val = J.val }
+
+I -> J		 {RD.in = J.val}
+	RD		 {I.val = RD.s}
+RD -> NOT I	 {RD1.in = NOT I.val}
+	 RD1		 {RD.s = RD1.s}
+RD -> e		 {RD.s = RD.in}
+
+
+J -> J1 = K    { J.val = (J1.val = K.val) }
+J -> J1 <> K   { J.val = (J1.val <> K.val) }
+J -> J1 > K    { J.val = (J1.val > K.val) }
+J -> J1 < K    { J.val = (J1.val < K.val) } 
+J -> J1 >= K   { J.val = (J1.val >= K.val) }  
+J -> J1 <= K   { J.val = (J1.val <= K.val) }
+J -> K         { J.val = K.val }
+
+J -> K		 {RE.in = K.val}
+	RE		 {J.val = RE.s}
+RE -> = K		 {RE1.in = RE.in == K.val}
+	 RE1		 {RE.s = RE1.s}
+RE -> <> K	 {RE1.in = RE.in != K.val}
+	 RE1		 {RE.s = RE1.s}
+RE -> > K		 {RE1.in = RE.in > K.val}
+	 RE1		 {RE.s = RE1.s}
+RE -> < K		 {RE1.in = RE.in < K.val}
+	 RE1		 {RE.s = RE1.s}
+RE -> >= K	 {RE1.in = RE.in >= K.val}
+	 RE1		 {RE.s = RE1.s}
+RE -> <= K	 {RE1.in = RE.in <= K.val}
+	 RE1		 {RE.s = RE1.s}
+RE -> e		 {RE.s = RE.in}
+
+
+K -> K1 + L    { K.val = K1.val + L.val }
+K -> K1 - L    { K.val = K1.val - L.val }
+K -> L         { K.val = L.val }
+
+K -> L		 {RF.in = L.val}
+	 RF		 {K.val = RF.s}
+RF -> + L		 {RF1.in = RF.in + L.val}
+	 RF1		 {RF.s = RF1.s}
+RF -> - L		 {RF1.in = RF.in – L.val}
+	 RF1		 {RF.s = RF1.s}
+RF -> e		 {RF.s = R.in}
+
+L -> L1 MOD M  { L.val = L1.val MOD M.val }
+L -> M         { L.val = M.val }
+
+L -> M		 {RG.in = M.val}
+	 RG		 {L.val = RG.s}
+RG -> MOD M	 {RG1.in = RG.inl MOD M.val}
+	 RG1		 {RG.s = RG1.s}
+RG -> e		 {RG.s = RG.in}
+
+M -> M1 \ N    { M.val = M1.val \ N.val }
+M -> N         { M.val = N.val }
+
+M -> N		 {RH.in = N.val}
+ RH		 {M.val = RH.s}
+RH -> \ N		 {RH1.in = RH.in \ N.val}
+	 RH1		 {RH.s = RH1.s}
+RH -> e		 {RH.s = RH.in}
+
+N -> N1 * P    { N.val = N1.val * P.val }
+N -> N1 / P    { N.val = N1.val / P.val }
+N -> P         { N.val = P.val }
+
+N -> P		 {RI.in = P.val}
+	 RI		 {N.val = RI.s}
+RI -> *P		 {RI1.in = RI.in * P.val}
+	 RI1		 {RI.s = RI1.s}
+RI -> /P		 {RI1.in = RI.in / P.val}
+	 RI1		 {RI.s = RI1.s}
+RI -> e		 {RI.s = RI.in}
+
+P -> +P1       { P.val = P1.val }
+P -> -P1       { P.val = -P1.val }
+P -> Q         { P.val = Q.val }
+
+P -> Q		 {RJ.in = Q.val}
+	 RJ		 {P.val = RJ.s}
+RJ -> +P		 {RJ1.in = P.val}
+	 RJ1		 {RJ.s = RJ1.s}
+RJ -> -P		 {RJ1.in = -P.val}
+	 RJ1		 {RJ.s = RJ1.s}
+RJ -> e		 {RJ.s = R.in}
+
+Q -> Q1 ^ R    { Q.val = Q1.val ^ R.val }
+Q -> R         { Q.val = R.val }
+
+Q -> R		 {RK.in = R.val}
+	 RK		 {Q.val = RK.s}
+RK -> ^ R		 {RK1.in = RK.in ^ R.val}
+	 RK1		 {RK.s = RK1.s}
+RK -> e		 {RK.s = RK.in}
+
+R -> (E)       { R.val = E.val }
+
+R -> (E) 		{R.val = E.val}
+
+R -> VAR       { R.val = VAR.val }
+R -> FUNCTION  { R.val = FUNCTION.val }

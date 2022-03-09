@@ -1,0 +1,8 @@
+import lib "mylib.so" as mlib
+import "speedtest.dov"
+
+fn main()
+    print "ok"
+//    mylib.OutputOne()
+    print speedtest.a
+endfn

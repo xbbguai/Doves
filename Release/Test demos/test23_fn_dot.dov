@@ -1,0 +1,40 @@
+
+struct coordinate
+    x
+    y
+endstruct
+
+fn coordinate.output()
+    print x, y
+endfn
+
+
+fn test()
+    dim a as coordinate
+    a = [5, 6]
+    return a
+endfn
+
+fn passthroughtest(byref a)
+    a = 8
+    return a
+endfn
+
+fn returnarray()
+    return [1,2,3,4,5,6]
+endfn
+
+fn main()
+    test().x = 5
+    print returnarray()[0]
+    a = returnarray()
+    print a[0]
+    print test().x
+    test().output()
+    b = test()
+    print b.x
+    print [3,4,5][0]
+
+    mm = 10
+    print mm
+endfn

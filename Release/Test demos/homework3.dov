@@ -1,0 +1,23 @@
+/*
+牛走岔路。
+n只牛一起探索岔路。到了岔路口，牛会分成两部分，分别往不同的岔路口前进，这两部分的牛的数量差为k。
+如果在某个岔路口，牛不能按上述规格分成两组，则这些牛就不再往前进，而是留在本地吃草。
+求：最后吃草的牛，一共有几组？
+
+*/
+
+fn fork(n, k)
+    if (n + k) mod 2 = 0
+        a = (n + k) / 2
+        b = n - a
+        if b > 0
+            return fork(a, k) + fork(b, k)
+        endif
+    endif
+    return 1
+endfn
+
+input "How many cows?", n as integer
+input "Seperation difference?", k as integer
+
+print fork(n, k)

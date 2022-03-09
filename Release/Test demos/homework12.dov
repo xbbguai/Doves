@@ -1,0 +1,58 @@
+/*
+    在 8 * 8 的国际象棋棋盘格上，求马从左边一个位置跳到右边一个位置的每一种跳法并打印出来。
+    假设马不会往回跳。
+    不用递归来解。即使用递归，也得另外设置一个栈来记录当前步的位置。
+*/
+
+struct Position
+    x as integer
+    y as integer
+    moveIdx as integer
+endstruct
+
+fn HorseJump(startPos as Position, endPos as Position)
+    dim Steps[10] as Position
+    
+    //定义马的4种走法
+    moves = [[1, -2], [2, -1], [1, 2], [2, 1]]
+
+    //起点位置
+    Steps[0] = startPos
+    currentStep = 0
+    while true
+        //如果当前这一步的往前4步都走完，要往后退一步
+        while Steps[currentStep].moveIdx >= moves.arraysize()
+            currentStep = currentStep - 1
+            if currentStep < 0
+                break all   //Break all是Doves语言特色
+            endif
+            Steps[currentStep].moveIdx = Steps[currentStep].moveIdx + 1
+        endwhile
+
+        //往前走
+        nextStep = currentStep + 1
+        currentMove = Steps[currentStep].moveIdx
+        Steps[nextStep] = [Steps[currentStep].x + moves[currentMove][0], Steps[currentStep].y + moves[currentMove][1], 0]
+        if Steps[nextStep].x = endPos.x and Steps[nextStep].y = endPos.y
+            for i = 0 to nextStep
+                print "("; Steps[i].x; ","; Steps[i].y; ")";
+                if i <> nextStep
+                    print " -> ";
+                endif
+            next
+            print
+            Steps[currentStep].MoveIdx = currentMove + 1
+        else if Steps[nextStep].x < 0 or Steps[nextStep].x > 7 or Steps[nextStep].y < 0 or Steps[nextStep].y > 7
+            Steps[currentStep].MoveIdx = currentMove + 1
+        else
+            currentStep = nextStep
+        endif
+    endwhile
+endfn
+
+input "Start x, y (seperated with space): ", startX as integer, startY as integer
+input "End x, y (seperated with space): ", endX as integer, endY as integer
+
+timeStarted = ticks()
+print HorseJump([startX, startY, 0], [endX, endY, 0])
+print "Milliseconds used to solve this problem: "; ticks() - timeStarted

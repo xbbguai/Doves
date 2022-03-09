@@ -1,0 +1,56 @@
+/*
+    环形队列
+    用数组实现队列。要求：队列的进出操作不能搬移数组内的元素。
+*/
+
+const global MAX_SIZE = 10
+
+class Queue
+    content[MAX_SIZE]
+    readPos as integer
+    writePos as integer 
+    currentSize as integer
+endclass
+
+fn Queue.Push(data)
+    if currentSize = MAX_SIZE
+        throw
+    else
+        content[writePos] = data
+        writePos = (writePos + 1) mod MAX_SIZE
+        currentSize = currentSize + 1
+    endif
+endfn
+
+fn Queue.Pop(data)
+    if currentSize = 0
+        throw
+    else
+        result = content[readPos]
+        readPos = (readPos + 1) mod MAX_SIZE
+        currentSize = currentSize - 1
+        return result
+    endif
+endfn
+
+fn main()
+    dim myQueue as Queue
+    for i = 0 to 100
+        if rand() > 0.5
+            try
+                data = myQueue.Pop()
+                print "Popped: ";data, "Queue size = "; myQueue.currentSize
+            catch
+                print "Queue is empty, cannot pop."
+            endtry
+        else
+            try
+                data = floor(rand() * 100)
+                myQueue.Push(data)
+                print "Pushed: ";data, "Queue size = "; myQueue.currentSize
+            catch
+                print "Queue is full, cannot push."
+            endtry
+        endif
+    next
+endfn

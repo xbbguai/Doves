@@ -1,0 +1,116 @@
+//structure with complicated members
+struct track
+    name
+    time
+endstruct
+
+fn track.set(name, time)
+    self.name = name
+    self.time = time
+endfn
+
+fn track.gettime()
+    return self.time
+endfn
+
+struct record
+    name as string
+    count as integer
+    musician[10] as string
+    datetime
+    tracks[10] as track
+    byref m[10] 
+    trackCount
+endstruct
+
+fn record.addMusician(mu as string)
+    self.musician[self.count] = mu
+    self.count = self.count + 1
+endfn
+
+fn record.addTrack(name, time)
+    tracks[trackCount].name = name
+    tracks[trackCount].time = time
+    trackCount = trackCount + 1
+endfn
+
+fn record.gettime()
+    return self.datetime
+endfn
+
+fn record.printout()
+    print "name = "; self.name
+    for i = 0 to self.count - 1
+        print "", self.musician[i]
+    next 
+    print "Datetime = "; self.datetime
+    print "Tracks:"
+    for i = 0 to self.trackCount - 1
+        print tab(3); i; " "; self.tracks[i].name, self.tracks[i].time
+    next
+endfn
+
+fn record.gettrack(track)
+    return self.tracks[track]
+endfn
+
+fn record.clone()
+ /*   dim clone as record
+    clone = self
+    return clone
+*/
+    return self
+endfn
+
+fn main()
+    dim records[3] as record
+    records[0].name = "Have a piece of cake."
+    records[0].addMusician("Michael Cockson")
+    records[0].addMusician("Geoge Tackle")
+    records[0].addMusician("No name")
+    records[0].datetime = "2020.01.01"
+    records[0].addTrack("Hulahula hulala", "3:40")
+    records[0].addTrack("Little drummer", "7:01")
+
+    records[1].name = "Fly me a plane"
+    records[1].addMusician("Neon Light")
+    records[1].addMusician("N.C. Tweeter")
+    records[1].datetime = 6502
+    records[1].tracks[0].set("noname song", "0:30")
+    records[1].tracks[1].set("Big Bang", "1:30")
+    records[1].trackCount = 2
+
+    records[2].name = "Cosmos feaver"
+    records[2].addMusician("Jason Hammer")
+    records[2].addMusician("Tic tac toe")
+    records[2].addMusician("White Peek")
+    records[2].addMusician("Mike Smith")
+    records[2].addTrack("Every moment", "1:23")
+
+    foreach item in records
+        item.printout()
+        print "------------------------"
+    next
+
+    print records[2].m.typename()
+    records[2].m[0] @= records[0]
+    print records[2].m[0].name
+    dim @(records[2].m[1]) as integer
+    records[2].m[1] = 9999
+    print records[2].m[1]
+
+    print records[0].gettime(), records[0].tracks[0].gettime()
+
+    print records[0].m[1] is null
+
+    redim global @(records[0].m)[25]
+    dim global @(records[0].m[24])
+    records[0].m[24] = 19
+
+    ls = records[2].gettrack(0)
+    print ls.name, ls.time
+
+    lr = records[0].clone()
+    print "Print a clone:"
+    lr.printout()
+endfn

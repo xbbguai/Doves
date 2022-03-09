@@ -1,0 +1,86 @@
+/*
+    幻方问题。也就是横着竖着斜着加起来都是相等的二维数字方阵。
+    幻方有填数规律，无论是多大的幻方，按规律把数填入各个位置即可。
+    但本题要求让计算机用穷举法来填幻方。
+*/
+
+fn CheckResult(byref block, n)
+    sumSave = 0
+    for y = 0 to n - 1
+        sumSave = sumSave + block[y]
+    next
+
+    for x = 1 to n - 1
+        sum = 0
+        for y = 0 to n - 1
+            sum = sum + block[x * n + y]
+        next
+        if sum <> sumSave
+            return
+        endif
+        sumSave = sum
+    next
+
+    for y = 0 to n - 1
+        sum = 0
+        for x = 0 to n - 1
+            sum = sum + block[x * n + y]
+        next
+        if sum <> sumSave
+            return
+        endif
+    next
+
+    sum = 0
+    for i = 0 to n - 1
+        sum =  sum + block[i * n + i]
+    next
+    if sum <> sumSave
+        return
+    endif
+
+    sum = 0
+    for i = 0 to n - 1
+        sum =  sum + block[i * n + n - 1 - i]
+    next
+    if sum <> sumSave
+        return
+    endif
+
+    for x = 0 to n - 1
+        for y = 0 to n - 1
+            print setw(5); block[x * n + y];
+        next
+        print
+    next
+    print "--------"
+endfn
+
+fn FillBlock(byref block, byref numbers, startPos, n)
+    k = n * n
+    for i = 0 to k - 1
+        if numbers[i] <> 0 
+            block[startPos] = numbers[i]
+            numbers[i] = 0
+            if startPos = k - 1
+                CheckResult(block, n)
+            else            
+                FillBlock(block, numbers, startPos + 1, n)
+            endif
+            numbers[i] = i + 1
+        endif
+    next
+endfn
+
+input "Scale = ", n as integer
+
+dim block[n * n] as integer
+dim numbers[n * n] as integer
+
+for i = 1 to n * n
+    numbers[i - 1] = i
+next
+
+time = ticks()
+FillBlock(block, numbers, 0, n)
+print "Milliseconds used to solve this problem: "; ticks() - time

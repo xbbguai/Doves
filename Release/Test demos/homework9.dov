@@ -1,0 +1,32 @@
+/*
+    约瑟夫问题 
+    循环数组解决法
+*/
+
+fn josephWithArray(n, k)
+    dim people[n]
+    for i = 1 to n
+        people[i - 1] = i
+    next
+
+    dim outCount, currentPos as integer
+    currentPos = n - 1
+    while outCount < n
+        for i = 1 to k
+            currentPos = (currentPos + 1) mod n
+            while people[currentPos] = 0
+                currentPos = (currentPos + 1) mod n
+            endwhile
+        next
+        print people[currentPos]
+        people[currentPos] = 0
+        outCount = outCount + 1
+    endwhile
+endfn
+
+fn main()
+    input "Size of the queue: ", n as integer
+    input "Span: ", k as integer
+
+    josephWithArray(n, k)
+endfn

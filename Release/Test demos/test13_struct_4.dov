@@ -1,0 +1,94 @@
+//structure, structure array, structure reference etc. as function parameters
+
+struct coordinate
+    dim x
+    dim y
+endstruct
+
+struct polygon
+    dim vertexCount
+    dim co[10] as coordinate
+endstruct
+
+fn polygon.addvertex(x, y)
+    print "I'm in addvertex to add: ", x, y
+    print "self.vertexCout = ";self.vertexCount
+    co[self.vertexCount].x = x
+    co[self.vertexCount].y = y
+    self.vertexCount = self.vertexCount + 1
+endfn
+
+fn polygon.draw()
+    for i = 0 to self.vertexCount - 1
+        print self.co[i].x, self.co[i].y
+    endfor
+endfn
+
+fn polygon.addCoordinate(co as coordinate)
+    addvertex(co.x, co.y)
+endfn
+
+fn drawpolygon(poly as polygon)
+   poly.draw()
+   poly.addvertex(5, 6)
+endfn
+
+fn drawpolygonbyref(byref poly as polygon)
+   poly.draw()
+   poly.addvertex(5, 6)
+endfn
+
+fn maxdistance(vert as array, size) as coordinate
+    dim ret as coordinate
+    dim maxd as real
+    for i = 0 to size - 1
+        distance = sqrt(vert[i].x ^ 2 + vert[i].y ^ 2)
+        if distance > maxd then
+            maxd = distance
+            ret = vert[i]
+        endif
+    next
+    return ret
+endfn
+
+fn maxdistancebyref(byref vert as array, size) as coordinate
+    dim ret as coordinate
+    dim maxd as real
+    for i = 0 to size - 1
+        distance = sqrt(vert[i].x ^ 2 + vert[i].y ^ 2)
+        if distance > maxd then
+            maxd = distance
+            ret = vert[i]
+        endif
+    next
+    return ret
+endfn
+
+dim global glb_a as integer
+
+fn main()
+    dim poly as polygon
+    glb_a = 1024
+    poly.addvertex(1, 2)
+    dim co as coordinate
+    co.x = 3
+    co.y = 4
+    poly.addcoordinate(co)
+    poly.addvertex(0, 0)
+    print poly.co.arraysize()
+    print arraysize(poly.co)
+
+    drawpolygon(poly)
+    drawpolygon(poly)
+    print
+    print "byref:"
+    drawpolygonbyref(poly)
+    drawpolygon(poly)
+
+    print "array param:"
+    maxdd = maxdistance(poly.co, 4)
+    print maxdd.x, maxdd.y
+    print "array param byref:"
+    maxdd = maxdistancebyref(poly.co, 4)
+    print maxdd.x, maxdd.y
+endfn

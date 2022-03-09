@@ -1,0 +1,65 @@
+struct Node
+    dim data
+    dim byref nextNode as Node 
+endstruct
+
+struct List
+    dim byref header as Node 
+endstruct
+
+fn List.Create()
+    dim global @(self.header) as Node
+endfn
+
+fn List.Append(data)
+    dim byref current 
+    current @= self.header
+    while not(current.nextNode is null)
+        current @= current.nextNode
+    endwhile
+    dim global @(current.nextNode) as Node
+    current.nextNode.data = data
+endfn
+
+fn List.Traverse()
+    dim byref current as Node 
+    current @= self.header
+    while not (current is null)
+        print current.data,
+        current @= current.nextNode
+    endwhile
+endfn
+
+fn List.Unlink(idx as integer)
+    dim byref current as Node 
+    current @= self.header
+    while idx > 0 and not(current.nextNode is null)
+        current @= current.nextNode
+        idx = idx - 1
+    endwhile
+    if current.nextNode is null
+        print "Index out of range."
+    else
+        current.nextNode @= current.nextNode.nextNode
+    endif
+endfn
+
+fn main()
+    currentTick = ticks()
+    dim MyList as List
+    MyList.Create()
+    MyList.Append(1)
+    MyList.Append(2)
+    MyList.Append("This is three")
+    MyList.Append(true)
+    MyList.Append(1.414)
+
+    MyList.Traverse()
+    print
+
+    MyList.Unlink(1)
+    MyList.Unlink(2)
+    MyList.Traverse()
+    print
+    print "Execute time = "; ticks() - currentTick; " ms"
+endfn

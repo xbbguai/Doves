@@ -1,0 +1,72 @@
+fn main()
+    dim a as real
+    input a, b, c  //b,c will be string
+
+    select a
+        case 1
+            if b = "a"
+                print "b = 'a'"
+            else
+                print "I'm in case 1"
+            endif
+        case 2
+            select case b
+                case "1"
+                    print "b = 1"
+                case "2"
+                    print "b = 2"
+                case else  
+                    print "b is else"
+                    select c
+                        case "a"
+                            print "c is a"
+                        case "b"
+                            print "c is b"
+                    endselect
+            endselect
+        case 3
+            print "a = 3"
+    endselect
+
+    select case a
+        case 1
+            print 1
+        case 1+1
+            print 2
+        case 3,2*2,5
+            print 3,4,5
+        case is = 30
+            print 30
+        case 6 to 10, 15
+            print "6 to 10, 15"
+        case is > 100, 98, 60 to 70
+            print "> 100, 98, 60 to 70"
+        case else
+            print "else"
+    endselect
+
+    select b + "a"
+        case "1a"
+            print "1aa"
+        case "2a" to "3a"
+            print "2a to 3a"
+        case is = "aaa"
+            print "is aaa"
+        case else
+            print "string else"
+    endselect
+
+    dim i as integer
+    while i < 100
+        select i
+            case i mod 10 = 0
+                print i
+            case i \ 5 = i / 5
+                print "a";i
+        endselect
+        i = i + 1
+        if i = 50
+            i = 51
+        endif
+    wend
+endfn

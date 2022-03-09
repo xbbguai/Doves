@@ -1,0 +1,5 @@
+fn main()
+    print 9^99
+    print 9^9^9
+    print 9^(9^9)
+endfn

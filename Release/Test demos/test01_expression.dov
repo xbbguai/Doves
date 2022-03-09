@@ -1,0 +1,53 @@
+//表达式测试
+fn main()
+    if (100 + 200 <> 300)
+        print "failed 1"
+    endif
+    if 5 + 10 * 6 <> 65
+        print 5 + 10 * 6 <> 65
+        print "failed 2"
+    endif
+    if 10 * 6 + 20 / 5 <> 64
+        print "failed 3"
+    endif
+    if 10 * (6 + 20) / 5 <> 52
+        print "failed 4"
+    endif 
+    if not (50 = 50)
+        print "failed 5"
+    endif
+    if 50 > 50
+        print "failed 6"
+    endif
+    if not (50 >= 50)
+        print "failed 7"
+    endif
+    if 20 > 30
+        print "failed 8"
+    endif
+    if 1 > 2 or 2 > 3
+        print "failed 9"
+    endif
+    if 10 ^ 2 <> 100
+        print "failed 10"
+    endif
+    if not (20 > 10 and 10 > 5)
+        print "failed 11"
+    endif
+    if 135 \ 6 <> 22
+        print "failed 12"
+    endif
+    if 135 mod 6 <> 3
+        print "failed 13"
+    endif
+    if (128 or 127) <> 255
+        print "failed 14"
+    endif
+    if 255 and 6 <> 6
+        print "failed 15"
+    endif
+    if  (not 127) <> -128
+        print "failed 16"
+    endif
+    print "Test ended."
+endfn

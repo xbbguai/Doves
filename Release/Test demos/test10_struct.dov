@@ -1,0 +1,82 @@
+struct coordinate
+    x as integer
+    y as integer
+endstruct
+
+fn coordinate.setxy(x, y)
+    self.x = x
+    self.y = y
+endfn
+
+fn coordinate.draw()
+    print "x = ";x, "y = ";y
+endfn
+
+fn main()
+    dim co as coordinate
+    co.setxy(100, 90)
+    co.draw()
+    
+    dim byref cor1 as coordinate 
+    dim byref cor2 
+    dim cocopy1 as coordinate
+    dim cocopy2
+
+    cor1 @= co
+    cor1.setxy(50, 51)
+    cor1.draw()
+    co.draw()
+
+    cor2 @= cor1
+    cor2.setxy(19,20)
+    cor2.draw()
+    co.draw()
+    cor1.draw()
+
+    dim @(cor1) as coordinate
+    cor1.setxy(99,98)
+    cor1.draw()
+    co.draw()
+    cor2.draw()
+
+    print "copy"
+    cocopy1 = co
+    cocopy2 = co
+    print cocopy1.x, cocopy2.x, co.x
+    print cocopy1.y, cocopy2.y, co.y
+    print "copy changed"
+    cocopy1.setxy(1,2)
+    cocopy2.setxy(3,4)
+    print cocopy1.x, cocopy2.x, co.x
+    print cocopy1.y, cocopy2.y, co.y
+
+    print
+    print "random coordinate test"
+    dim coar[10] as coordinate
+    seed()
+    for i = 0 to 9
+        coar[i].x = rand() * 100
+        coar[i].y = rand() * 100
+    endfor
+
+    print "test foreach"
+    foreach item in coar
+        item.draw()
+    endfor
+
+    print "copy of coordinate"
+    dim a1
+    a1 = coar
+    for i = 0 to 9
+        a1[i].draw()
+        a1[i].x = rand() * 10
+        a1[i].y = rand() * 10
+    endfor
+
+    print "see the difference"
+    for i = 0 to 9
+        a1[i].draw()
+        coar[i].draw()
+    endfor
+endfn
+

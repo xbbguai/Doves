@@ -1,0 +1,139 @@
+//数组测试
+fn BuildGlobalArray()
+    dim global artest[10] as integer
+    for i = 0 to 9
+        artest[i] = 100 - i
+    next
+endfn
+
+fn BigArray()
+    dim big[10000][10000] as integer
+    print "step1 ok"
+    redim big[1]
+    print "step2 ok"
+endfn
+
+fn main()
+    dim aq[5]
+    aq[1] = "asd"
+    print aq[1], aq[1].typename()
+    aq[3] = aq[1] + "123"
+    print aq[1], aq[3]
+
+    dim byref mm 
+    dim @(mm) as string
+    mm = "asdf byref"
+    print mm
+
+    BuildGlobalArray()
+    for i = 0 to 9
+        print artest[i]; " ";
+    next
+    print
+
+    dim byref a[10] as null 
+    for i = 0 to 9
+        dim global @(a[i])[10] as integer
+    next
+    for i = 0 to 9
+        for j = 0 to 9
+            a[i][j] = i * j
+        next
+    next
+    for i = 0 to 9
+        for j = 0 to 9
+            print a[i][j],
+        next
+        print
+    next
+    print
+
+    dim b[5]
+    b[0] = 123
+    b[1] = "asdfg"
+    b[2] = 45.6
+    b[3] = false
+    b[4] = b[1] + "56778" + b[1]
+    for i = 0 to 4
+        print b[i], b[i].typename()
+    next
+    print
+
+    dim byref c[5] 
+    c[0] @= b[0]
+    c[1] @= b[1]
+    c[2] @= a[9][9]
+    dim @(c[3]) as string
+    c[3] = "this is a string"
+    c[4] @= b[3]
+    for i = 0 to 4
+        print c[i]
+    next
+    print
+
+    c[0] = 321
+    print c[0], b[0]
+    c[2] = 181
+    print c[2], a[9][9]
+    print
+
+    redim c[10]
+    c[5] @= a[5][5]
+    for i = 0 to 5
+        print c[i]
+    next
+
+    redim global @(a[9])[12]
+    a[9][10] = 3.14
+    a[9][11] = 6.28
+    for i = 0 to 11
+        print a[9][i],
+    next
+    print
+
+    dim ar1
+    ar1 = c
+    dim ar2 as array
+    ar2 = c
+    dim ar3[5]
+
+    ar1[0] = 9.9
+    ar2[0] = 9
+    for i = 0 to 4
+        print ar1[i], ar2[i], ar3[i], c[i]
+    next
+
+    dim byref arref as array 
+    arref @= ar1
+    arref[0] = 6502
+    print arref[0], ar1[0], c[0]
+
+    dim arrs as array
+    print arrs.arraysize()
+    arrs = arref
+    print arrs.arraysize()
+    arrs[9] = 1
+    
+    foreach i in arrs
+        print i, i.typename()
+    next
+    print
+    arrs[0] = 8086
+    print arrs[0], arref[0]
+
+    dim mkl[10][10]
+    print i.typename()
+
+    for i = 0 to 9
+        redim (mkl[i])[i + 1]
+        print mkl[i].arraysize()
+    next
+    for i = 0 to 9
+        for j = 0 to mkl[i].arraysize() - 1
+            mkl[i][j] = j
+            print i, j, mkl[i][j]
+        next
+        print
+    next
+
+endfn

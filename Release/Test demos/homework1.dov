@@ -1,0 +1,70 @@
+/*
+
+编写程序，实现将数字按旋转方式填入方阵中。
+【输入】一个整数n，1 < n < 10，表示方阵大小
+【输出】按旋转方式将数1到n * n放入方阵中并打印
+【示例】
+输入：5
+输出：
+1	2	3	4	5
+16	17	18	19	6
+15	24	25	20	7
+14	23	22	21	8
+13	12	11	10	9
+
+*/
+
+fn TurnRight(byref cx, byref cy, byref turnMethod)
+    turnMethod = (turnMethod + 1) mod 4
+    select turnMethod
+        case 0
+            cy = 0
+            cx = 1
+        case 1
+            cy = 1
+            cx = 0
+        case 2
+            cy = 0
+            cx = -1
+        case 3
+            cy = -1
+            cx = 0
+    endselect
+endfn
+
+fn IsTrapped(x, y, n, arr) as boolean
+    if x >= n or y >= n or x < 0 or y < 0
+        return true
+    else if arr[x][y] <> 0  //Doves 0.1a 没有条件表达式短路功能，所以这个条件不能和上一个条件合并，否则会有数组越界问题。
+        return true
+    else
+        return false
+    endif
+endfn
+
+fn main()
+    turnMethod = 0
+    cx = 1
+    cy = 0
+    input n as integer
+
+    dim arr[n][n]
+    
+    x = 0
+    y = 0
+    for i = 1 to n * n
+        arr[x][y] = i
+        if IsTrapped(x + cx, y + cy, n, arr)
+            TurnRight(cx, cy, turnMethod)
+        endif
+        x = x + cx
+        y = y + cy
+    next
+    
+    for y = 0 to n - 1
+        for  x = 0 to n - 1
+            print setw(5); arr[x][y];
+        next
+        print
+    next
+endfn

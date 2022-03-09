@@ -1,0 +1,47 @@
+fn main()
+    dim a as real
+    dim b as real
+    dim c as real
+    dim d as real
+    dim e as real
+    input a,b,c,d,e
+    print a.typename(), b.typename(), c.typename(), d.typename(), e.typename()
+    if a > b then
+        print "a > b", c
+    endif
+    if a > b then
+        print "a > b confirmed"
+    else
+        print "a < b"
+    endif
+
+    if a > b and b > c then
+        print "a > c"
+    else if a < b and b < c then
+        print "a < c"
+    else if a = b and b = c then
+        print "a = b = c"
+    else
+        print "Not classified."
+    endif
+
+    if a + b = c + d then
+        if d = e then
+            print "branch 1"
+        endif
+        print "brach 1 out"
+    else if e = 100 then
+        print "e = 100"
+        for i = 0 to 10
+            print i,
+        next
+        print
+    endif
+
+    for i = 1 to 100
+        if i mod 2 = 0
+            print i,
+        endif
+    next
+    print
+endfn

@@ -1,0 +1,29 @@
+import "printsetup.dov" as prn
+
+//字符串测试
+fn main()
+    prn.setcolor(9)
+    string1 = "i am the first string"
+    string2 = "i am the second string"
+    string3 = string1 + string2
+    print string1, string2, string3
+    print len(string1), len(string2), len(string3)
+    print left(string1, 0), left(string1, 5), left(string1, 100)
+    print right(string2, 0), right(string2, 5), right(string2, 100)
+    print mid(string3, 1, 5), mid(string3, 2, 10)
+    print left(string1, 5) + mid(string2, 4, 100)
+
+    dim str as string 
+    dim num as real
+    dim strn
+    str = string1
+    print str
+    str = string2
+    print str
+    strn = string1
+    print strn
+    print typename(str), typename(num), typename(strn)
+    print val("123")
+
+
+endfn

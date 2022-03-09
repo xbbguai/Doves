@@ -1,0 +1,159 @@
+fn no_param()
+endfn
+
+fn no_param_with_return()
+    return "I'm back"
+endfn
+
+fn returntype() as integer
+    a = 10
+    b = 20
+    c = sqrt(a * b)
+    return c
+endfn
+
+fn withparam1(a as integer)
+    return a * a + 1
+endfn
+
+fn withparam2(a)
+    if a is string
+        return a + " hahaha"
+    else if a is boolean
+        return not a
+    else if a.isnumeric()
+        return a * a
+    else
+        return a
+    endif
+endfn
+
+fn manyparam(a, b, c)
+    if a >= b and b >= c
+        return a
+    else if b >= a and a >= c
+        return b
+    else
+        print a, b, c
+        return c
+    endif
+endfn
+
+fn manyparam2(a as integer, b as string) as integer
+    return a + val(b)
+endfn
+
+fn withref(byref a, b as integer)
+    a = 20
+    b = 10
+    return a * b
+endfn
+
+fn withref2(str1 as string, byref str2 as string) as real
+    if str2.val() = 0
+        str2 = "3.1415"
+    endif
+    if str1.val() = 0
+        str1 = "6"
+    endif
+    return val(str2) * val(str1)
+endfn
+
+fn move(disks as integer, N, M)
+    print "第"; sum; "次移动：把"; disks; "号圆盘从"; N; "移动到"; M
+    sum = sum + 1
+endfn
+
+fn hanoi(n as integer, a as integer, b as integer, c as integer)
+    if n = 1
+        move(1, a, c)
+    else
+        hanoi(n - 1, a, c, b)
+        move(n, a, c)
+        hanoi(n - 1, b, a, c)
+    endif
+endfn
+
+fn arraytest(a, size)
+    sum = 0
+    for i = 0 to size - 1
+        sum = sum + a[i]
+        a[i] = 0
+    next
+    return sum
+endfn
+
+fn arraytest2(a as array, size)
+    sum = 0
+    for i = 0 to size - 1
+        sum = sum + a[i]
+        a[i] = 0
+    next
+    return sum
+endfn
+
+fn arraytest3(byref a as array, size)
+    sum = 0
+    for i = 0 to size - 1
+        sum = sum + a[i]
+        a[i] = i * i
+    next
+    return sum
+endfn
+
+
+fn main()
+    no_param()
+    print "no param returned"
+
+    print no_param_with_return()
+
+    print returntype()
+
+    withparam1(10)
+
+    print withparam2(20)
+    print withparam2("test")
+    print withparam2(true)  //should print True
+
+    print withparam2(20:a)
+
+    print manyparam(1,2,3)
+    print manyparam(3,2,1)
+    print manyparam("b", "am", "fix")
+    print manyparam("am", "fix", "2")
+    print manyparam("am":c, "fix":a, "2":b)
+
+    print manyparam2(true, "0")
+
+    a = 50
+    b = 100
+    print a, b, withref(a, b), a, b
+
+    str = "a"
+    print withref2("100.1", str), str
+    print withref2("b", str), str
+
+    dim global sum as integer
+    hanoi(3, 1, 2, 3)
+
+    dim ar[5] as integer
+    for i = 0 to 4
+        ar[i] = i + 10
+    next
+    print "sum of array = "; arraytest(ar, 5)
+    for i = 0 to 4
+        print ar[i]
+    next
+
+    print "sum of array = "; arraytest2(ar, 5)
+    for i = 0 to 4
+        print ar[i]
+    next
+
+    print "sum of array = "; arraytest3(ar, 5)
+    for i = 0 to 4
+        print ar[i]
+    next
+
+endfn

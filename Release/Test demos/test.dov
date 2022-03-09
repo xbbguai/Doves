@@ -1,0 +1,33 @@
+struct tests
+    dim a as integer
+    dim b as integer
+endstruct
+
+struct test2
+    dim mm as tests
+    dim c as integer
+endstruct
+
+fn test2.member()
+    c = 10
+endfn
+
+fn testing(a)
+    return a * a
+endfn
+
+fn main()
+    dim m as test2
+    dim ar[10] as integer
+    dim ars[10] as tests
+    m.c = 3.14
+    m.mm.a = 314
+    print (m).c
+    print ((m).mm).a
+    print (ar)[0], ar[1], ar[2]
+    print (ars[0]).a
+    print len("123")
+    print testing(5)
+    m.member()
+    print m.c
+endfn

@@ -1,0 +1,74 @@
+//普通变量和引用测试
+
+fn main()
+    dim s as string
+    dim i as integer
+    dim r as real
+    dim b as boolean
+    dim n1
+    dim n2
+    dim n3
+    dim n4
+
+    dim byref sr as string 
+    dim byref ir as integer 
+    dim byref rr as real 
+    dim byref br as boolean 
+    dim byref nr1 
+    dim byref nr2 
+    dim byref nr3 
+    dim byref nr4 
+
+    s = "asdfaf"
+    print s //asdfaf
+    i = 100
+    print i //100
+    i = true
+    print i //1
+    r = 50.5
+    print r //50.5
+    i = r
+    print r, i  //50.5 50
+    b = true
+    print b    //true
+    b = i
+    print b    //true
+
+    n1 = s
+    print n1, n1.typename() //asdfaf, string
+    n2 = i
+    print n2, n2.typename() //50, integer
+    n3 = r
+    print n3, n3.typename() //50.5, real
+    n4 = b
+    print n4, n4.typename() //true, boolean
+
+    nr1 @= s
+    print nr1, nr1.typename()   
+    nr1 = "changed"
+    print nr1, s
+    nr2 @= i
+    print nr2, nr2.typename()
+    nr2 = 68
+    print nr2, i
+    nr3 @= r
+    print nr3, nr3.typename()
+    nr3 = 99.09
+    print nr3, r
+    nr4 @= b
+    print nr4, nr4.typename()
+    nr4 = false
+    print nr4, b
+
+    dim byref nu as null 
+    nu @= nr3
+    nu = 20
+    print nu, nr3, r
+
+    dim byref nu2 as string 
+    dim @(nu2) as string
+    nu2 = "12345"
+    print nu2
+    nu2 @= s
+    print nu2
+endfn

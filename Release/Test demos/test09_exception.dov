@@ -1,0 +1,58 @@
+fn try2()
+    throw
+endfn
+
+fn try1(i)
+    try
+        if i = 1
+            throw 100
+        else if i = 2
+            print "i = 2"
+            dim e as exception
+            e.errCode = 999
+            throw e
+        else if i = 3
+            throw
+        endif
+        errorhere
+    catch e as exception
+        print "exception catched with errcode = "; e.errCode
+    catch e as integer
+        print "integer catched with e = "; e
+    catch
+        print "anything others catched."
+        try2()
+    endtry
+endfn
+
+fn main()
+    dim a[5] as integer
+    i = 5
+    try
+        print a[i]  //Generate an error
+        asdff       //This is a syntax error and is unrecoverable.
+    catch e
+        print "Err Catched", e.errCode
+        i = i - 1
+        if i > 0
+            retry
+        else
+            print "error not recoverable"
+        endif
+    endtry
+    print "Try end"
+
+    try1(1)
+    try1(2)
+    try1(4)
+    try
+        try1(3)
+    catch e as exception
+        print "e catched"
+    catch
+        print "anything catched."
+    catch
+    endtry
+
+    print "program end"
+endfn
