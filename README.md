@@ -1,10 +1,9 @@
 # Doves
-Doves interpreter.
+'Doves' is a computer programming language.
+See docs/ for 'Doves' language reference.
 
-See docs/ for 'doves' language reference.
-
-Pre-compiled executables can be found in release/ folder. The 'Test Demos' are programs written in doves language for testing.
+Pre-compiled doves interpreter executables can be found in release/ folder. The 'Test Demos' are programs written in doves language for testing.
 
 Execute a doves program:
 
-./doves programName
+  ./doves programName
